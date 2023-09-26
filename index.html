@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css" type="text/css"> 
+    </head>
+    <body>
+        <div class="container container__canvas">
+            <h1 class="container__canvas__h1">Percolation: <span id="percolationLabel">False</span></h1>
+            <canvas class="canvas"></canvas>
+        </div>
+        <div class="container">
+            <form>
+                <div class="form__input--group" id="interactive">
+                    <label for="n">Slider for (n*n) percolation grid </label>
+                    <div class="form__input">
+                        <span class="form__span" id="min">0</span><input id="n" min="0" max="100" name="n" type="range" value="1"><span class="form__span" id="max">100</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="canvas.js" type="module"></script>
+    </body>
+</html>
