@@ -14,18 +14,24 @@ canvas {
 }
 
 form {
+    position: absolute;
     align-items: center;
-    border: 1px solid black;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: auto;
-    width: 80%;
+    flex-direction: column;
+    justify-content: space-between;
+    left: 0;
+    right: 0;
+    padding: 20px 0;
+}
+
+#automatic {
+    display: none;
 }
 
 .container {
     display: block;
     margin: 20px auto;
+    position: relative;
     width: 100%;
 }
 
@@ -37,11 +43,21 @@ form {
     text-align: center;
 }
 
+.form__button {
+    border: 0;
+    border-radius: 35px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    width: 80%;
+}
+
 .form__input--group {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 8px 0;
 }
 
 .form__input > * {
@@ -52,4 +68,60 @@ form {
     display: inline-block;
     padding: 2px;
     text-align: center;
+}
+
+.form__switch {
+    position: relative;
+    display: inline-block;
+    width: 60px; 
+    height: 34px;
+}
+
+.form__switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.form__switch__input:checked + .form__switch__slider {
+    background-color: #2196F3;;
+}
+
+.form__switch__input:focus + .form__switch__slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.form__switch__input:checked + .form__switch__slider:before {
+    transform: translateX(26px);
+}
+
+.form__switch__slider {
+    border-radius: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.form__switch__slider:before {
+    border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+.wrapper {
+    display: block;
+    height: 100%;
+    margin: auto;
+    width: 80%;
 }

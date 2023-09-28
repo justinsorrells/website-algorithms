@@ -8,6 +8,7 @@ export class Percolation {
     virtualTop;
     virtualBottom;
     percolationFlag = false;
+    openSites;
     
     constructor(n)
     {
@@ -15,6 +16,7 @@ export class Percolation {
         this.altUF = new QuickUnion((n*n) + 2);
         this.board = Array(n);
         this.sz = n;
+        this.openSites = 0;
         for (let i = 0; i < n; i++)
         {
             this.board[i] = 0;
@@ -28,6 +30,7 @@ export class Percolation {
         const id = this.convertCoordinatesTo1D(row, col);
         if (this.board[id] == 1) { return ;}
         this.board[id] = 1;
+        this.openSites++;
         if (id < this.sz)
         {
             this.UF.union(this.virtualTop, id);
@@ -86,11 +89,16 @@ export class Percolation {
 
     isValidCoords(row, col)
     {
-        if (row >= 0 && col >= 0)
+        if ((row >= 0 && col >= 0) && (row < this.sz && col < this.sz))
         {
             return true;
         }
         return false;
+    }
+
+    numberOfOpenSites()
+    {
+        return this.openSites;
     }
 }
 

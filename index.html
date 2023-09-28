@@ -9,15 +9,37 @@
             <h1 class="container__canvas__h1">Percolation: <span id="percolationLabel">False</span></h1>
             <canvas class="canvas"></canvas>
         </div>
-        <div class="container">
-            <form>
-                <div class="form__input--group" id="interactive">
-                    <label for="n">Slider for (n*n) percolation grid </label>
-                    <div class="form__input">
-                        <span class="form__span" id="min">0</span><input id="n" min="0" max="100" name="n" type="range" value="1"><span class="form__span" id="max">100</span>
+        <div class="wrapper">
+            <div class="container">
+                <form>
+                    <div class="form__input--group">
+                        <label for="toggle"></label>
+                        <div class="form__input" onclick="">
+                            <span class="form__span">Interactive</span>
+                            <div class="form__switch">
+                                <input class="form__switch__input" name="toggle" id="toggle" type="checkbox">
+                                <span class="form__switch__slider"></span>
+                            </div>
+                            <span class="form__span">Automatic</span>
+                        </div>
                     </div>
-                </div>
-            </form>
+                    <div class="form__input--group">
+                        <label for="n">Slider for (n*n) percolation grid </label>
+                        <div class="form__input">
+                            <span class="form__span" id="minN">1</span><input id="n" min="1" max="100" name="n" type="range" value="3"><span class="form__span" id="maxN">100</span>
+                        </div>
+                    </div>
+                    <div id="automatic">
+                        <div class="form__input--group">
+                            <label for="t">Slider for percolation trials</label>
+                            <div class="form__input">
+                                <span class="form__span" id="minT">1</span><input id="t" min="1" max="100" name="t" type="range" value="3"><span class="form__span" id="maxT">100</span>
+                            </div>
+                        </div>
+                        <button class="form__button" id="runSim" type="button">Run Simulation</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <script src="canvas.js" type="module"></script>
     </body>

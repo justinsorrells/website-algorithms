@@ -9,6 +9,7 @@ export class QuickUnion {
         for (let i = 0; i < n; i++)
         {
             this.id[i] = i;
+            this.sz[i] = 1;
         }
         this.count = n;
     }
