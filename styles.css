@@ -70,6 +70,10 @@ form {
     text-align: center;
 }
 
+.form__stats {
+    display: none;
+}
+
 .form__switch {
     position: relative;
     display: inline-block;

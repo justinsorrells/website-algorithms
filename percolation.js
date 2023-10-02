@@ -100,6 +100,34 @@ export class Percolation {
     {
         return this.openSites;
     }
+
+    fillGrid(canvas, nValue, ctx, getSquareSize)
+    {
+        const squareSize = getSquareSize(canvas, nValue);
+        ctx.clearRect(0, 0, canvas.offsetHeight, canvas.offsetWidth);
+        ctx.fillStyle = "#000000";
+        for (let i = 0; i < nValue; i++)
+            {
+                for (let j = 0; j < nValue; j++)
+                {
+                    if (this.isFull(i, j) == true)
+                    {
+                        ctx.fillStyle = "#00FF00"; 
+                        ctx.fillRect(j * squareSize, i * squareSize, squareSize-1, squareSize-1);
+                    }
+                    else if (this.isOpen(i, j) == true)
+                    {
+                        ctx.fillStyle = "#e0e0e0";
+                        ctx.fillRect(j * squareSize, i * squareSize, squareSize-1, squareSize-1);
+                    }
+                    else
+                    {
+                        ctx.fillStyle = "#000000";
+                        ctx.fillRect(j * squareSize, i * squareSize, squareSize-1, squareSize-1); 
+                    }
+                }
+            }
+    }
 }
 
 export default Percolation;

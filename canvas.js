@@ -49,29 +49,7 @@ function getClickPosition(canvas, event, nValue, perc, menu)
     let row = Math.floor(y / squareSize);
     let col = Math.floor(x / squareSize);
     perc.open(row, col);
-    ctx.clearRect(0, 0, ctxWidth, ctxHeight);
-    ctx.fillStyle = "#000000";
-    for (let i = 0; i < nValue; i++)
-        {
-            for (let j = 0; j < nValue; j++)
-            {
-                if (perc.isFull(i, j) == true)
-                {
-                    ctx.fillStyle = "#00FF00"; 
-                    ctx.fillRect(j * squareSize, i * squareSize, squareSize-1, squareSize-1);
-                }
-                else if (perc.isOpen(i, j) == true)
-                {
-                    ctx.fillStyle = "#e0e0e0";
-                    ctx.fillRect(j * squareSize, i * squareSize, squareSize-1, squareSize-1);
-                }
-                else
-                {
-                    ctx.fillStyle = "#000000";
-                    ctx.fillRect(j * squareSize, i * squareSize, squareSize-1, squareSize-1); 
-                }
-            }
-        }
+    perc.fillGrid(canvas, nValue, ctx, getSquareSize);
     if(perc.percolates())
     {
         percolationLabel.textContent = "True";
@@ -80,7 +58,8 @@ function getClickPosition(canvas, event, nValue, perc, menu)
 
 function getPercolationStats(e, n)
 {
-    let stats = new PercolationStats(n);
+    let stats = new PercolationStats(n, canvas, ctx, getSquareSize, t);
+    stats.runRound();
 }
 
 function setEventListeners(menu)
@@ -89,7 +68,7 @@ function setEventListeners(menu)
         getClickPosition(canvas, e, n.value, perc, menu);
     });
     runSim.addEventListener("click", (e) => {
-        getPercolationStats(e, n.value);
+        getPercolationStats(e, n);
     })
 }
 
