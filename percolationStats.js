@@ -11,7 +11,9 @@ class PercolationStats {
     length;
     nSlider;
     tSlider;
-    constructor(n, canvas, ctx, getSquareSize, t)
+    state;
+
+    generateSimulation(n, canvas, ctx, getSquareSize, t)
     {
         this.data = Array(n.value);
         this.canvas = canvas;
@@ -23,7 +25,7 @@ class PercolationStats {
         this.perc = new Percolation(n.value);
         this.nSlider = n;
         this.tSlider = t;
-     }
+    }
 
     getRandomNumber(n)
     {
@@ -35,21 +37,13 @@ class PercolationStats {
         if (this.checkNumberOfTrials() || this.checkForGridSizeChange() || this.checkForTrialSizeChange())
         {
             this.displayStats();
+            this.state = 0;
             return ;
         }
         setTimeout(() => {
             this.perc.open(this.getRandomNumber(this.length), this.getRandomNumber(this.length));
             this.perc.fillGrid(this.canvas, this.length, this.ctx, this.getSquareSize);
-            if (!this.perc.percolates()) { 
-                this.runRound((this.canvas, this.length, this.ctx, this.getSquareSize))
-            }
-            else
-            {
-                this.recordPercolationRoundIntoDataArray();
-                this.perc = new Percolation(this.length);
-                this.runRound((this.canvas, this.length, this.ctx, this.getSquareSize));
-
-            }
+            this.doesPercolate();
         }, 1);
     }
 
@@ -124,6 +118,20 @@ class PercolationStats {
         formStats.style.display = "block";
     }
 
+    doesPercolate()
+    {
+        if (!this.perc.percolates()) { 
+            this.runRound((this.canvas, this.length, this.ctx, this.getSquareSize))
+        }
+        else
+        {
+            this.recordPercolationRoundIntoDataArray();
+            this.perc = new Percolation(this.length);
+            this.runRound((this.canvas, this.length, this.ctx, this.getSquareSize));
+
+        }
+    }
+
     getConfidenceLow()
     {
         return this.getMeanOfData() - (( 1.96 * this.getStandardDeviationOfData() ) / Math.sqrt( this.trials ));
@@ -143,6 +151,22 @@ class PercolationStats {
     {
         let mean = this.getMeanOfData();
         return Math.sqrt(this.data.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / this.data.length);
+    }
+
+    hideStats()
+    {
+        const formStats = document.querySelector(".form__stats");
+        formStats.style.display = "none";
+    }
+
+    get state()
+    {
+        return this.state;
+    }
+
+    set state(status)
+    {
+        this.state = status;
     }
 
     recordPercolationRoundIntoDataArray()

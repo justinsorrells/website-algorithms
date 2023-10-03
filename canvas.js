@@ -14,6 +14,7 @@ const percolationLabel = document.querySelector("#percolationLabel");
 const runSim = document.querySelector("#runSim");
 
 let perc;
+let stats = new PercolationStats();
 
 function createGrid()
 {
@@ -56,10 +57,15 @@ function getClickPosition(canvas, event, nValue, perc, menu)
     }
 }
 
-function getPercolationStats(e, n)
+function getPercolationStats(n)
 {
-    let stats = new PercolationStats(n, canvas, ctx, getSquareSize, t);
-    stats.runRound();
+    if (stats.state !== 1)
+    {
+        stats.hideStats();
+        stats.generateSimulation(n, canvas, ctx, getSquareSize, t);
+        stats.runRound();
+        stats.state = 1;
+    }
 }
 
 function setEventListeners(menu)
@@ -67,8 +73,8 @@ function setEventListeners(menu)
     canvas.addEventListener("click", (e) => {
         getClickPosition(canvas, e, n.value, perc, menu);
     });
-    runSim.addEventListener("click", (e) => {
-        getPercolationStats(e, n);
+    runSim.addEventListener("click", () => {
+        getPercolationStats(n);
     })
 }
 
